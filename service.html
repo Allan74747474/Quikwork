@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuikWork - Create Services</title>
+    <link rel="stylesheet" href="service.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <h1>QuikWork</h1>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="servicemain.html">Services</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <section>
+            <h2>Create and Offer Your Services</h2>
+            <form id="service-form">
+                <div class="form-group">
+                    <label for="service-title">Service Title</label>
+                    <input type="text" id="service-title" name="service-title" placeholder="Enter your service title" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="service-category">Category</label>
+                    <select id="service-category" name="service-category" required>
+                        <option value="">--Select a category--</option>
+                        <option value="graphic-design">Graphic Design</option>
+                        <option value="web-development">Web Development</option>
+                        <option value="content-writing">Content Writing</option>
+                        <option value="digital-marketing">Digital Marketing</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="service-price">Price ($)</label>
+                    <input type="number" id="service-price" name="service-price" placeholder="Enter your price" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="service-description">Description</label>
+                    <textarea id="service-description" name="service-description" rows="5" placeholder="Describe your service in detail" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="service-image">Upload an Image</label>
+                    <input type="file" id="service-image" name="service-image" accept="image/*" required>
+                </div>
+
+                <button type="submit">Create Service</button>
+            </form>
+        </section>
+
+        <!-- Created Services List -->
+        <section id="created-services">
+            <h2>Your Services</h2>
+            <div class="service-list">
+                <!-- Dynamically generated services will appear here -->
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 QuikWork. All rights reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
