@@ -25,12 +25,12 @@
             <form id="service-form">
                 <div class="form-group">
                     <label for="service-title">Service Title</label>
-                    <input type="text" id="service-title" name="service-title" placeholder="Enter your service title" required>
+                    <input type="text" id="service-title" name="service-title" placeholder="Enter your service title" >
                 </div>
 
                 <div class="form-group">
                     <label for="service-category">Category</label>
-                    <select id="service-category" name="service-category" required>
+                    <select id="service-category" name="service-category" >
                         <option value="">--Select a category--</option>
                         <option value="graphic-design">Graphic Design</option>
                         <option value="web-development">Web Development</option>
@@ -41,21 +41,20 @@
 
                 <div class="form-group">
                     <label for="service-price">Price ($)</label>
-                    <input type="number" id="service-price" name="service-price" placeholder="Enter your price" required>
+                    <input type="number" id="service-price" name="service-price" placeholder="Enter your price" >
                 </div>
 
                 <div class="form-group">
                     <label for="service-description">Description</label>
-                    <textarea id="service-description" name="service-description" rows="5" placeholder="Describe your service in detail" required></textarea>
+                    <textarea id="service-description" name="service-description" rows="5" placeholder="Describe your service in detail" ></textarea>
                 </div>
 
                 <div class="form-group">
                     <label for="service-image">Upload an Image</label>
-                    <input type="file" id="service-image" name="service-image" accept="image/*" required>
+                    <input type="file" id="service-image" name="service-image" accept="image/*" >
                 </div>
-
-                <button type="submit">Create Service</button>
             </form>
+            <button  class="submit" type="submit">Create Service</button>
         </section>
 
         <!-- Created Services List -->
@@ -72,6 +71,6 @@
         <p>&copy; 2025 QuikWork. All rights reserved.</p>
     </footer>
 
-    <script src="script.js"></script>
+    <script src="service.js"></script>
 </body>
 </html>
