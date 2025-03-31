@@ -241,8 +241,8 @@ footer {
 
 /* Profile Picture in Navbar */
 .nav-profile-pic {
-    width: 20px; 
-    height: 60px;
+    width: 25px; 
+    height: 25px;
     border-radius: 50%; /* Makes it circular */
     object-fit: cover; /* Ensures image is properly cropped */
     margin-right: 5px;

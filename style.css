@@ -252,11 +252,13 @@ footer {
     text-align: center;
 }
 
-.large-profile-pic {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    margin-bottom: 10px;
+.nav-profile-pic {
+    width: 25px; 
+    height: 25px;
+    border-radius: 50%; /* Makes it circular */
+    object-fit: cover; /* Ensures image is properly cropped */
+    margin-right: 5px;
+    vertical-align: middle;
 }
 
 input, button {
