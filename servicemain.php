@@ -49,7 +49,7 @@ if ($user_id) {
                 <a href="#" class="dropbtn">
                     <img src="uploads/<?php echo htmlspecialchars($profile_pic); ?>" 
                          alt="Profile" class="nav-profile-pic"
-                         style="height:40px; width:60px;">
+                         style="height:40px; width:40px;">
                     <?php echo htmlspecialchars($username); ?>
                 </a>
                 <div class="dropdown-content">
