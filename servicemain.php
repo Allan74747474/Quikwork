@@ -42,7 +42,7 @@ if ($user_id) {
         <li><a href="index.php">Home</a></li>
         <li><a href="servicemain.php">Services</a></li>
         <li><a href="#about">About</a></li>
-        <li><a href="#contact">Contact</a></li>
+        <li><a href="Contact.php">Contact</a></li>
 
         <?php if ($user_id): ?>
             <!-- User Profile Dropdown -->
@@ -110,19 +110,6 @@ if ($user_id) {
         <section>
             <h2>All Your Services</h2>
             <p>Below is a list of all the services you have created. Manage and update them as needed.</p>
-
-            <!-- Uncomment and populate this section with dynamic content as needed
-            <div class="service-list">
-                <div class="service">
-                    <img src="https://freeup.net/wp-content/uploads/2021/12/man-picking-colors-for-logo-design-1024x576.jpg" alt="Service 1">
-                    <h4>Logo Design</h4>
-                    <p>Starting at $50</p>
-                    <button>Edit</button>
-                    <button>Delete</button>
-                </div>
-                ...
-            </div>
-            -->
         </section>
     </div>
 
