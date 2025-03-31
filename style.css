@@ -96,6 +96,7 @@ header {
     font-size: 1rem;
     background-color: #ffcc00;
     border: none;
+    width: 100px;
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;
@@ -277,8 +278,8 @@ button:hover {
 
 /* Profile Picture in Navbar */
 .nav-profile-pic {
-    width: 40px; 
-    height: 40px;
+    width: 20px; 
+    height: 60px;
     border-radius: 50%; /* Makes it circular */
     object-fit: cover; /* Ensures image is properly cropped */
     margin-right: 5px;
@@ -295,7 +296,7 @@ button:hover {
     display: none;
     position: absolute;
     right: 0; /* Align dropdown to the right */
-    background-color: white;
+    background-color: #0044cc;
     min-width: 150px;
     box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
     border-radius: 5px;
@@ -316,7 +317,7 @@ button:hover {
 }
 
 .dropdown-content a:hover {
-    background-color: #f1f1f1;
+    background-color:#092c72;
 }
 
 /* Show dropdown on hover */
@@ -328,7 +329,7 @@ button:hover {
 .profile-link {
     display: flex;
     align-items: center;
-    color: white;
+    color: #0044ccc9;
     font-weight: bold;
     cursor: pointer;
     gap: 5px;

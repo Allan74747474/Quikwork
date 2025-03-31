@@ -1,4 +1,29 @@
-<?php session_start(); ?>
+
+
+<?php
+session_start();
+include 'db_config.php'; // Ensure database connection
+
+$user_id = $_SESSION['user_id'] ?? null;
+$profile_pic = "default.jpg"; // Default profile image
+$username = "Guest"; // Default username
+
+if ($user_id) {
+    $query = "SELECT username, profile_pic FROM users WHERE id = :user_id";
+    $stmt = $conn->prepare($query);
+    $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+    $stmt->execute();
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if ($user) {
+        $username = $user['username'];
+        if (!empty($user['profile_pic'])) {
+            $profile_pic = $user['profile_pic'];
+        }
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,9 +33,8 @@
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" href="favicon.png">
-
 </head>
 <body>
     <header>
@@ -18,16 +42,18 @@
             <div class="logo">QuikWork</div>
             <ul class="nav-links">
                 <li><a href="index.php">Home</a></li>
-                <li><a href="servicemain.html">Services</a></li>
+                <li><a href="servicemain.php">Services</a></li>
                 <li><a href="#about">About</a></li>
                 <li><a href="#contact">Contact</a></li>
 
-                <?php if (isset($_SESSION['user_id'])): ?>
-                    <!-- Show User Profile Dropdown -->
+                <?php if ($user_id): ?>
+                    <!-- User Profile Dropdown -->
                     <li class="dropdown">
                         <a href="#" class="dropbtn">
-                            <img src="uploads/<?php echo $_SESSION['profile_pic']; ?>" alt="Profile" class="nav-profile-pic">
-                            <?php echo $_SESSION['username']; ?>
+                            <img src="uploads/<?php echo htmlspecialchars($profile_pic); ?>" 
+                                 alt="Profile" class="nav-profile-pic"
+                                 style="height:40px; width:60px;">
+                            <?php echo htmlspecialchars($username); ?>
                         </a>
                         <div class="dropdown-content">
                             <a href="profile.php">Profile</a>

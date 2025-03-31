@@ -1,14 +1,19 @@
 <?php
-$host = 'sql302.infinityfree.com'; // Example: sqlXXX.infinityfree.com
-$dbname = 'if0_38635253_db_quikwork'; // Your database name from InfinityFree
-$username = 'if0_38635253'; // Your InfinityFree database username
-$password = 'Pifawiro24'; // Your InfinityFree database password
+// Start session only if it's not already started
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+$servername = "sql302.infinityfree.com";
+$username = "if0_38635253";
+$password = "Pifawiro24";
+$dbname = "if0_38635253_db_quikwork";
 
 try {
-    $conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
+    $conn = new PDO("mysql:host=$servername;dbname=$dbname;charset=utf8", $username, $password);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-   // echo "Connected successfully!";
 } catch (PDOException $e) {
     die("Connection failed: " . $e->getMessage());
 }
 ?>
+

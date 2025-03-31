@@ -1,6 +1,11 @@
 <?php
 session_start();
-include 'db.php'; // Your database connection file
+include 'db_config.php'; // Corrected include
+
+// Ensure session is active
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 
 // Redirect if not logged in
 if (!isset($_SESSION['user_id'])) {
@@ -8,12 +13,18 @@ if (!isset($_SESSION['user_id'])) {
     exit();
 }
 
-// Fetch user details
 $userId = $_SESSION['user_id'];
-$query = "SELECT username, email, profile_pic FROM users WHERE id = '$userId'";
-$result = mysqli_query($conn, $query);
-$user = mysqli_fetch_assoc($result);
+
+// Fetch user details securely using PDO
+$query = "SELECT username, email, profile_pic FROM users WHERE id = :userId";
+$stmt = $conn->prepare($query);
+$stmt->bindParam(":userId", $userId, PDO::PARAM_INT);
+$stmt->execute();
+$user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+$profilePic = !empty($user['profile_pic']) ? $user['profile_pic'] : "default.jpg";
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -22,6 +33,8 @@ $user = mysqli_fetch_assoc($result);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/png" href="favicon.png">
+
 </head>
 <body>
 
@@ -31,8 +44,8 @@ $user = mysqli_fetch_assoc($result);
         <li><a href="#main">Services</a></li>
         <li class="dropdown">
             <a href="#" class="dropbtn">
-                <img src="uploads/<?php echo $user['profile_pic']; ?>" alt="Profile" class="profile-pic">
-                <?php echo $user['username']; ?>
+                <img src="uploads/<?php echo htmlspecialchars($profilePic); ?>" alt="Profile" class="profile-pic">
+                <?php echo htmlspecialchars($user['username']); ?>
             </a>
             <div class="dropdown-content">
                 <a href="profile.php">Profile</a>
@@ -44,20 +57,23 @@ $user = mysqli_fetch_assoc($result);
 
 <div class="profile-container">
     <h2>Your Profile</h2>
-    <img src="uploads/<?php echo $user['profile_pic']; ?>" alt="Profile Picture" class="large-profile-pic">
+    <img src="uploads/<?php echo htmlspecialchars($profilePic); ?>" alt="Profile Picture" class="large-profile-pic">
+    
+    <!-- Profile Update Form -->
     <form action="update_profile.php" method="POST" enctype="multipart/form-data">
         <label>Username:</label>
-        <input type="text" name="username" value="<?php echo $user['username']; ?>" required>
+        <input type="text" name="username" value="<?php echo htmlspecialchars($user['username']); ?>" required>
 
         <label>Email:</label>
-        <input type="email" name="email" value="<?php echo $user['email']; ?>" required>
+        <input type="email" name="email" value="<?php echo htmlspecialchars($user['email']); ?>" required>
 
         <label>Change Profile Picture:</label>
-        <input type="file" name="profile_pic">
+        <input type="file" name="profile_pic" accept="image/*">
 
         <button type="submit" name="update_profile">Update Profile</button>
     </form>
 
+    <!-- Password Change Form -->
     <h3>Change Password</h3>
     <form action="update_password.php" method="POST">
         <label>Current Password:</label>

@@ -238,3 +238,62 @@ footer {
 .serviceflex{
     display: flex;
 }
+
+/* Profile Picture in Navbar */
+.nav-profile-pic {
+    width: 20px; 
+    height: 60px;
+    border-radius: 50%; /* Makes it circular */
+    object-fit: cover; /* Ensures image is properly cropped */
+    margin-right: 5px;
+    vertical-align: middle;
+}
+
+/* Dropdown Styles */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0; /* Align dropdown to the right */
+    background-color: #0044cc;
+    min-width: 150px;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    z-index: 1000;
+}
+
+.dropdown-content a {
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+    color: black;
+    font-size: 14px;
+    border-bottom: 1px solid #ddd; /* Adds a separator */
+}
+
+.dropdown-content a:last-child {
+    border-bottom: none; /* Removes bottom border from last item */
+}
+
+.dropdown-content a:hover {
+    background-color:#092c72;
+}
+
+/* Show dropdown on hover */
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* Styling for Username next to Profile Picture */
+.profile-link {
+    display: flex;
+    align-items: center;
+    color: #0044ccc9;
+    font-weight: bold;
+    cursor: pointer;
+    gap: 5px;
+}

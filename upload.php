@@ -1,32 +1,40 @@
 <?php
 session_start();
-include 'db.php'; // Your database connection file
+include 'db_config.php'; // Ensure database connection
 
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["profile_pic"])) {
-    $userId = $_SESSION['user_id'];
-    $targetDir = "uploads/"; // Folder where images are stored
-    $fileName = basename($_FILES["profile_pic"]["name"]);
-    $targetFilePath = $targetDir . $fileName;
-    $fileType = pathinfo($targetFilePath, PATHINFO_EXTENSION);
+$user_id = $_SESSION['user_id'] ?? null;
+if (!$user_id) {
+    die("You must be logged in to upload a profile picture.");
+}
 
-    // Allowed file types
-    $allowedTypes = array("jpg", "jpeg", "png", "gif");
-    if (in_array($fileType, $allowedTypes)) {
-        if (move_uploaded_file($_FILES["profile_pic"]["tmp_name"], $targetFilePath)) {
-            // Update database
-            $updateQuery = "UPDATE users SET profile_pic = '$fileName' WHERE id = '$userId'";
-            mysqli_query($conn, $updateQuery);
+if (isset($_POST['upload']) && isset($_FILES['profile_pic'])) {
+    $upload_dir = "uploads/";
+    $allowed_types = ["jpg", "jpeg", "png", "gif"];
+    $file_name = basename($_FILES["profile_pic"]["name"]);
+    $file_ext = strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
 
-            // Update session
-            $_SESSION['profile_pic'] = $fileName;
+    if (!in_array($file_ext, $allowed_types)) {
+        die("Invalid file type! Only JPG, JPEG, PNG, and GIF allowed.");
+    }
 
-            header("Location: profile.php?success=1");
-            exit();
-        } else {
-            echo "Error uploading file.";
-        }
+    $new_file_name = "profile_" . $user_id . "." . $file_ext; // Unique name
+    $target_path = $upload_dir . $new_file_name;
+
+    if (move_uploaded_file($_FILES["profile_pic"]["tmp_name"], $target_path)) {
+        // Update profile picture in database
+        $query = "UPDATE users SET profile_pic = ? WHERE id = ?";
+        $stmt = $conn->prepare($query);
+        $stmt->bind_param("si", $new_file_name, $user_id);
+        $stmt->execute();
+        $stmt->close();
+
+        // Update session with new profile pic
+        $_SESSION['profile_pic'] = $new_file_name;
+
+        echo "Profile picture updated successfully!";
+        header("Location: profile.php");
     } else {
-        echo "Only JPG, JPEG, PNG & GIF files are allowed.";
+        echo "Error uploading file.";
     }
 }
 ?>

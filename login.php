@@ -1,8 +1,10 @@
 <?php
 session_start();
 include 'db_config.php';
-
+$_SESSION['user_id'] = $user_id;  // Store user ID in session
 $login_error = "";
+setcookie("user_id", $user_id, time() + (86400 * 30), "/"); // 30 days
+
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = trim($_POST['username']);
