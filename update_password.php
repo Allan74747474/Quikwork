@@ -1,25 +1,30 @@
 <?php
 session_start();
-include 'db.php';
+include 'db_config.php';
 
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_SESSION['user_id'])) {
-    $userId = $_SESSION['user_id'];
-    $currentPassword = $_POST['current_password'];
-    $newPassword = $_POST['new_password'];
-    $confirmNewPassword = $_POST['confirm_new_password'];
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
-    // Fetch user's current password securely
-    $query = "SELECT password FROM users WHERE id = ?";
+if (!isset($_SESSION['user_id'])) {
+    die("Unauthorized access.");
+}
+
+$userId = $_SESSION['user_id'];
+$currentPassword = $_POST['current_password'];
+$newPassword = $_POST['new_password'];
+$confirmNewPassword = $_POST['confirm_new_password'];
+
+try {
+    // Fetch current password securely
+    $query = "SELECT password FROM users WHERE id = :id";
     $stmt = $conn->prepare($query);
-    $stmt->bind_param("i", $userId);
+    $stmt->bindParam(":id", $userId, PDO::PARAM_INT);
     $stmt->execute();
-    $result = $stmt->get_result();
-    $user = $result->fetch_assoc();
-    $stmt->close();
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+    $stmt->closeCursor();
 
     if (!$user) {
-        echo "User not found.";
-        exit();
+        die("User not found.");
     }
 
     // Verify current password
@@ -29,21 +34,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_SESSION['user_id'])) {
             $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
 
             // Update password securely
-            $updateQuery = "UPDATE users SET password = ? WHERE id = ?";
+            $updateQuery = "UPDATE users SET password = :password WHERE id = :id";
             $stmt = $conn->prepare($updateQuery);
-            $stmt->bind_param("si", $hashedPassword, $userId);
-            if ($stmt->execute()) {
-                $stmt->close();
-                header("Location: profile.php?password_updated=1");
-                exit();
-            } else {
-                echo "Error updating password.";
-            }
+            $stmt->bindParam(":password", $hashedPassword, PDO::PARAM_STR);
+            $stmt->bindParam(":id", $userId, PDO::PARAM_INT);
+            $stmt->execute();
+            $stmt->closeCursor();
+
+            header("Location: profile.php?password_updated=1");
+            exit();
         } else {
-            echo "New passwords do not match.";
+            die("New passwords do not match.");
         }
     } else {
-        echo "Current password is incorrect.";
+        die("Current password is incorrect.");
     }
+} catch (PDOException $e) {
+    die("Database error: " . $e->getMessage());
 }
 ?>

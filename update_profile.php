@@ -1,69 +1,86 @@
 <?php
 session_start();
-include 'db_config.php';  // Ensure this file correctly sets up a PDO connection ($conn)
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_SESSION['user_id'])) {
-    $userId = $_SESSION['user_id'];
-    $username = $_POST['username'];
-    $email = $_POST['email'];
+include 'db_config.php';
 
-    // Validate username and email
-    if (empty($username) || empty($email)) {
-        header("Location: profile.php?error=empty_fields");
-        exit();
+echo "Debugging started!<br>";
+
+if (!isset($conn)) {
+    die("Database connection is missing!");
+}
+
+// Stop script to check if this part runs
+exit("Checkpoint reached!");
+?>
+
+
+<?php
+session_start();
+echo "Script started!";
+exit();
+?>
+
+
+<?php
+session_start();
+include 'db_config.php';
+
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+die("Script started!"); // Debug point 1
+
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_SESSION['user_id'])) {
+    die("POST request received!"); // Debug point 2
+
+    $userId = $_SESSION['user_id'];
+    $currentPassword = $_POST['current_password'];
+    $newPassword = $_POST['new_password'];
+    $confirmNewPassword = $_POST['confirm_new_password'];
+
+    if (empty($currentPassword) || empty($newPassword) || empty($confirmNewPassword)) {
+        die("Error: Fields are empty");
+    }
+
+    if ($newPassword !== $confirmNewPassword) {
+        die("Error: Passwords do not match");
     }
 
     try {
-        // Update user details using PDO
-        $updateQuery = "UPDATE users SET username = :username, email = :email WHERE id = :id";
+        die("Checking user password"); // Debug point 3
+
+        $query = "SELECT password FROM users WHERE id = :id";
+        $stmt = $conn->prepare($query);
+        $stmt->execute([':id' => $userId]);
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if (!$user) {
+            die("Error: User not found");
+        }
+
+        if (!password_verify($currentPassword, $user['password'])) {
+            die("Error: Incorrect current password");
+        }
+
+        die("Password verified, updating..."); // Debug point 4
+
+        $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
+
+        $updateQuery = "UPDATE users SET password = :password WHERE id = :id";
         $stmt = $conn->prepare($updateQuery);
         $stmt->execute([
-            ':username' => $username,
-            ':email' => $email,
+            ':password' => $hashedPassword,
             ':id' => $userId
         ]);
 
-        // Handle profile picture upload
-        if (!empty($_FILES["profile_pic"]["name"])) {
-            $targetDir = "uploads/";
-
-            // Generate a unique filename
-            $fileExt = strtolower(pathinfo($_FILES["profile_pic"]["name"], PATHINFO_EXTENSION));
-            $newFileName = "profile_" . $userId . "_" . time() . "." . $fileExt;
-            $targetFilePath = $targetDir . $newFileName;
-
-            // Allowed file types and max file size (2MB)
-            $allowedTypes = ["jpg", "jpeg", "png", "gif"];
-            $maxFileSize = 2 * 1024 * 1024; // 2MB
-
-            if (in_array($fileExt, $allowedTypes) && $_FILES["profile_pic"]["size"] <= $maxFileSize) {
-                if (move_uploaded_file($_FILES["profile_pic"]["tmp_name"], $targetFilePath)) {
-                    // Update the profile picture in the database
-                    $updatePicQuery = "UPDATE users SET profile_pic = :profile_pic WHERE id = :id";
-                    $stmt = $conn->prepare($updatePicQuery);
-                    $stmt->execute([
-                        ':profile_pic' => $newFileName,
-                        ':id' => $userId
-                    ]);
-
-                    // Update session variable
-                    $_SESSION['profile_pic'] = $newFileName;
-                } else {
-                    header("Location: profile.php?error=upload_failed");
-                    exit();
-                }
-            } else {
-                header("Location: profile.php?error=invalid_file");
-                exit();
-            }
-        }
-
-        header("Location: profile.php?success=1");
+        die("Password updated successfully! Redirecting..."); // Debug point 5
+        header("Location: profile.php?success=password_updated");
         exit();
     } catch (PDOException $e) {
         die("Database error: " . $e->getMessage());
     }
+} else {
+    die("Error: Invalid request method or user not logged in");
 }
-?>
