@@ -35,6 +35,7 @@ if ($user_id) {
 }
 ?>
 
+
 <nav class="navbar">
     <h1>QuikWork</h1>
     <ul class="nav-links">
@@ -65,19 +66,18 @@ if ($user_id) {
 </nav>
 
 
-    <!-- Main Content -->
-    <div class="main-content">
+<div class="main-content">
         <section>
             <h2>Create and Offer Your Services</h2>
             <form id="service-form">
                 <div class="form-group">
                     <label for="service-title">Service Title</label>
-                    <input type="text" id="service-title" name="service-title" placeholder="Enter your service title" >
+                    <input type="text" id="service-title" name="service-title" placeholder="Enter your service title" required>
                 </div>
 
                 <div class="form-group">
                     <label for="service-category">Category</label>
-                    <select id="service-category" name="service-category" >
+                    <select id="service-category" name="service-category" required>
                         <option value="">--Select a category--</option>
                         <option value="graphic-design">Graphic Design</option>
                         <option value="web-development">Web Development</option>
@@ -88,29 +88,31 @@ if ($user_id) {
 
                 <div class="form-group">
                     <label for="service-price">Price ($)</label>
-                    <input type="number" id="service-price" name="service-price" placeholder="Enter your price" >
+                    <input type="number" id="service-price" name="service-price" placeholder="Enter your price" required>
                 </div>
 
                 <div class="form-group">
                     <label for="service-description">Description</label>
-                    <textarea id="service-description" name="service-description" rows="5" placeholder="Describe your service in detail" ></textarea>
+                    <textarea id="service-description" name="service-description" rows="5" placeholder="Describe your service in detail" required></textarea>
                 </div>
 
                 <div class="form-group">
                     <label for="service-image">Upload an Image</label>
-                    <input type="file" id="service-image" name="service-image" accept="image/*" >
+                    <input type="file" id="service-image" name="service-image" accept="image/*" required>
                 </div>
+
+                <button class="submit" type="submit">Create Service</button>
             </form>
-            <button  class="submit" type="submit">Create Service</button>
         </section>
+    </div>
 
     <div class="main-content" id="main">
         <section>
             <h2>All Your Services</h2>
             <p>Below is a list of all the services you have created. Manage and update them as needed.</p>
 
-            <!-- <div class="service-list">
-                
+            <!-- Uncomment and populate this section with dynamic content as needed
+            <div class="service-list">
                 <div class="service">
                     <img src="https://freeup.net/wp-content/uploads/2021/12/man-picking-colors-for-logo-design-1024x576.jpg" alt="Service 1">
                     <h4>Logo Design</h4>
@@ -118,41 +120,19 @@ if ($user_id) {
                     <button>Edit</button>
                     <button>Delete</button>
                 </div>
-
-                
-                <div class="service">
-                    <img src="https://techwiseinsider.com/wp-content/uploads/2024/02/How-To-Create-a-WordPress-Website-in-20-Steps-scaled.jpg" alt="Service 2">
-                    <h4>WordPress Development</h4>
-                    <p>Starting at $150</p>
-                    <button>Edit</button>
-                    <button>Delete</button>
-                </div>
-
-                
-                <div class="service">
-                    <img src="https://assets.entrepreneur.com/content/3x2/2000/20180625222224-shutterstock-394758724.jpeg" alt="Service 3">
-                    <h4>SEO Optimization</h4>
-                    <p>Starting at $100</p>
-                    <button>Edit</button>
-                    <button>Delete</button>
-                </div>
-
-                
-                <div class="service">
-                    <img src="https://easypractice.net/wp-content/uploads/2023/05/kenny-eliason-3GZNPBLImWc-unsplash.jpg.webp" alt="Service 4">
-                    <h4>Blog Writing</h4>
-                    <p>Starting at $30</p>
-                    <button>Edit</button>
-                    <button>Delete</button>
-                </div>
-            </div> -->
+                ...
+            </div>
+            -->
         </section>
     </div>
+
     <script src="service.js"></script>
 
     <!-- Footer -->
-    <!-- <footer>
+    <!-- Uncomment if needed
+    <footer>
         <p>&copy; 2025 QuikWork. All rights reserved.</p>
-    </footer> -->
+    </footer>
+    -->
 </body>
 </html>

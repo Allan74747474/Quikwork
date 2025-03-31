@@ -176,7 +176,6 @@ button:hover {
     background-color: #005bb5;
 }
 
-/* Created Services Section */
 #created-services {
     margin-top: 40px;
 }
@@ -211,6 +210,32 @@ button:hover {
 
 .service p {
     color: #555;
+}
+
+/* Footer Styles */
+footer {
+    text-align: center;
+    padding: 30px;
+    background-color: #0044cc;
+    color: white;
+    position: ;
+    bottom: 0;
+    width: 100%;
+}
+.div-shadow{
+    background-color: beige;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 250px;
+    height: 250px;
+    text-align: center;
+    transition: transform 0.3s ease;
+    margin: 0 1em 1em 0;
+}
+
+.serviceflex{
+    display: flex;
 }
 
 /* Footer Styles */
