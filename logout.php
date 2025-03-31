@@ -1,18 +1,7 @@
 <?php
-// logout.php
 session_start();
-session_destroy();
-header("Location: login.php");
-?>
-
-
-<?php
-// dashboard.php
-session_start();
-if (!isset($_SESSION['user_id'])) {
-    header("Location: login.php");
-    exit;
-}
-
-echo "Welcome, " . $_SESSION['username'] . "!";
+session_unset(); // Unset all session variables
+session_destroy(); // Destroy the session
+header("Location: index.php"); // Redirect to homepage
+exit();
 ?>

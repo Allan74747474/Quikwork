@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,22 +6,42 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>QuikWork</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
         <nav class="navbar">
             <div class="logo">QuikWork</div>
             <ul class="nav-links">
-                <li><a href="#">Home</a></li>
-                <li><a href="servicemain.html">Services</a></li>
+                <li><a href="index.php">Home</a></li>
+                <li><a href="#main">Services</a></li>
                 <li><a href="#about">About</a></li>
                 <li><a href="#contact">Contact</a></li>
-                <li><a href="login.html">Login</a></li>
+
+                <?php if (isset($_SESSION['user_id'])): ?>
+                    <!-- Show User Profile Dropdown -->
+                    <li class="dropdown">
+                        <a href="#" class="dropbtn">
+                            <img src="uploads/<?php echo $_SESSION['profile_pic']; ?>" alt="Profile" class="nav-profile-pic">
+                            <?php echo $_SESSION['username']; ?>
+                        </a>
+                        <div class="dropdown-content">
+                            <a href="profile.php">Profile</a>
+                            <a href="logout.php">Logout</a>
+                        </div>
+                    </li>
+                <?php else: ?>
+                    <!-- Show Login Link If Not Logged In -->
+                    <li><a href="login.php">Login</a></li>
+                <?php endif; ?>
             </ul>
         </nav>
     </header>
+
     <main>
-        <section class="hero">
+        <section class="hero" id="hero1">
             <h1 class="ftp">Find the Perfect Freelance Services</h1>
             <div class="search-bar">
                 <input type="text" placeholder="What service are you looking for?">
@@ -58,9 +79,11 @@
             </form>
         </section>
     </main>
+    
     <footer>
         <p>&copy; 2025 QuikWork. All Rights Reserved.</p>
     </footer>
+
     <script src="script.js"></script>
 </body>
 </html>
