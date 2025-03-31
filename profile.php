@@ -1,3 +1,4 @@
+
 <?php
 session_start();
 include 'db_config.php'; // Corrected include
@@ -26,68 +27,90 @@ $profilePic = !empty($user['profile_pic']) ? $user['profile_pic'] : "default.jpg
 ?>
 
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="profile.css">
     <link rel="icon" type="image/png" href="favicon.png">
-
 </head>
 <body>
 
-<nav>
-    <ul>
-        <li><a href="index.php">Home</a></li>
-        <li><a href="#main">Services</a></li>
-        <li class="dropdown">
-            <a href="#" class="dropbtn">
-                <img src="uploads/<?php echo htmlspecialchars($profilePic); ?>" alt="Profile" class="profile-pic">
-                <?php echo htmlspecialchars($user['username']); ?>
-            </a>
-            <div class="dropdown-content">
-                <a href="profile.php">Profile</a>
-                <a href="logout.php">Logout</a>
+<header>
+    <nav class="navbar">
+        <h1 class="logo">QuikWork</h1>
+        <ul class="nav-links">
+            <li><a href="index.php">Home</a></li>
+            <li><a href="services.php">Services</a></li>
+            <li class="dropdown">
+                <a href="#" class="dropbtn">
+                    <img src="uploads/<?php echo htmlspecialchars($profilePic); ?>" alt="Profile" class="nav-profile-pic">
+                    <?php echo htmlspecialchars($user['username']); ?>
+                </a>
+                <div class="dropdown-content">
+                    <a href="profile.php">Profile</a>
+                    <a href="logout.php">Logout</a>
+                </div>
+            </li>
+        </ul>
+    </nav>
+</header>
+
+<div class="main-content">
+    <section class="profile-section">
+        <h2>Your Profile</h2>
+        <div class="profile-info">
+            <img src="uploads/<?php echo htmlspecialchars($profilePic); ?>" alt="Profile Picture" class="large-profile-pic">
+            <form action="update_profile.php" method="POST" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label>Username:</label>
+                    <input type="text" name="username" value="<?php echo htmlspecialchars($user['username']); ?>" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Email:</label>
+                    <input type="email" name="email" value="<?php echo htmlspecialchars($user['email']); ?>" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Change Profile Picture:</label>
+                    <input type="file" name="profile_pic" accept="image/*">
+                </div>
+
+                <button class="submit" type="submit" name="update_profile">Update Profile</button>
+            </form>
+        </div>
+    </section>
+
+    <section class="password-section">
+        <h3>Change Password</h3>
+        <form action="update_password.php" method="POST">
+            <div class="form-group">
+                <label>Current Password:</label>
+                <input type="password" name="current_password" required>
             </div>
-        </li>
-    </ul>
-</nav>
 
-<div class="profile-container">
-    <h2>Your Profile</h2>
-    <img src="uploads/<?php echo htmlspecialchars($profilePic); ?>" alt="Profile Picture" class="large-profile-pic">
-    
-    <!-- Profile Update Form -->
-    <form action="update_profile.php" method="POST" enctype="multipart/form-data">
-        <label>Username:</label>
-        <input type="text" name="username" value="<?php echo htmlspecialchars($user['username']); ?>" required>
+            <div class="form-group">
+                <label>New Password:</label>
+                <input type="password" name="new_password" required>
+            </div>
 
-        <label>Email:</label>
-        <input type="email" name="email" value="<?php echo htmlspecialchars($user['email']); ?>" required>
+            <div class="form-group">
+                <label>Confirm New Password:</label>
+                <input type="password" name="confirm_new_password" required>
+            </div>
 
-        <label>Change Profile Picture:</label>
-        <input type="file" name="profile_pic" accept="image/*">
-
-        <button type="submit" name="update_profile">Update Profile</button>
-    </form>
-
-    <!-- Password Change Form -->
-    <h3>Change Password</h3>
-    <form action="update_password.php" method="POST">
-        <label>Current Password:</label>
-        <input type="password" name="current_password" required>
-
-        <label>New Password:</label>
-        <input type="password" name="new_password" required>
-
-        <label>Confirm New Password:</label>
-        <input type="password" name="confirm_new_password" required>
-
-        <button type="submit" name="update_password">Change Password</button>
-    </form>
+            <button class="submit" type="submit" name="update_password">Change Password</button>
+        </form>
+    </section>
 </div>
+
+<footer>
+    <p>&copy; 2025 QuikWork. All rights reserved.</p>
+</footer>
 
 </body>
 </html>
