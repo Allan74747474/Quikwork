@@ -79,19 +79,19 @@ if ($user_id) {
         <section id="services" class="services">
             <h2>Explore Popular Services</h2>
             <div class="service-cards">
-                <div class="card">
-                    <img src="https://blog-frontend.envato.com/cdn-cgi/image/width=1200,quality=75,format=auto,fit=crop,height=630/uploads/sites/2/2023/02/Tuts_Roundup__Top_Graphic_Design_Courses.jpeg" alt="Graphic Design">
-                    <h3>Graphic Design</h3>
-                </div>
-                <div class="card">
-                    <img src="https://media.istockphoto.com/id/1061031056/photo/pre-adolescent-boy-programming-at-computer.jpg?s=612x612&w=0&k=20&c=ZpdMz3WOKlahnBBOzeue4fdSIyzlZyHyfW4t9qi_xHQ=" alt="Programming">
-                    <h3>Programming</h3>
-                </div>
-                <div class="card">
-                    <img src="https://www.simplilearn.com/ice9/free_resources_article_thumb/How_To_Become_A_Content_Writer.jpg" alt="Content Writing">
-                    <h3>Content Writing</h3>
-                </div>
-            </div>
+             <a href="service.php?service=graphic-design" class="card">
+              <img src="https://blog-frontend.envato.com/cdn-cgi/image/width=1200,quality=75,format=auto,fit=crop,height=630/uploads/sites/2/2023/02/Tuts_Roundup__Top_Graphic_Design_Courses.jpeg" alt="Graphic Design">
+               <h3>Graphic Design</h3>
+            </a>
+           <a href="service.php?service=programming" class="card">
+             <img src="https://media.istockphoto.com/id/1061031056/photo/pre-adolescent-boy-programming-at-computer.jpg?s=612x612&w=0&k=20&c=ZpdMz3WOKlahnBBOzeue4fdSIyzlZyHyfW4t9qi_xHQ=" alt="Programming">
+               <h3>Programming</h3>
+           </a>
+            <a href="service.php?service=content-writing" class="card">
+              <img src="https://www.simplilearn.com/ice9/free_resources_article_thumb/How_To_Become_A_Content_Writer.jpg" alt="Content Writing">
+               <h3>Content Writing</h3>
+           </a>
+             </div>
         </section>
         <section id="about" class="about">
             <h2>About Us</h2>
