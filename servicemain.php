@@ -1,5 +1,16 @@
 <?php
 session_start();
+include 'db_config.php';
+
+$user_id = $_SESSION['user_id'] ?? null;
+if (!$user_id) {
+    echo "<script>alert('You must log in to access this page!'); window.location.href='login.php';</script>";
+    exit();
+}
+
+?>
+<?php
+session_start();
 include 'db_config.php'; // Database connection
 
 $user_id = $_SESSION['user_id'] ?? null;
