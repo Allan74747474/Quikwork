@@ -45,7 +45,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <!-- Navbar -->
     <header>
         <nav class="navbar">
-            <h1 class="logo">QuikWork</h1>
+        <div class="logo">
+            <img src="uploads/logo.png" alt="QuikWork Logo" style="height: 50px; width: auto;">
+        </div>
             <ul class="nav-links">
                 <li><a href="index.php">Home</a></li>
                 <li><a href="servicemain.php">Services</a></li>

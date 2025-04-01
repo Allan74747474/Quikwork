@@ -52,31 +52,38 @@ if ($user_id) {
 </head>
 <body>
 
-<nav class="navbar">
-    <h1>QuikWork</h1>
-    <ul class="nav-links">
-        <li><a href="index.php">Home</a></li>
-        <li><a href="servicemain.php">Services</a></li>
-        <li><a href="#about">About</a></li>
-        <li><a href="#contact">Contact</a></li>
-        <?php if ($user_id): ?>
-            <li class="dropdown">
-                <a href="#" class="dropbtn">
-                    <img src="uploads/<?php echo htmlspecialchars($profile_pic); ?>" 
-                         alt="Profile" class="nav-profile-pic" 
-                         style="height:40px; width:40px;">
-                    <?php echo htmlspecialchars($username); ?>
-                </a>
-                <div class="dropdown-content">
-                    <a href="profile.php">Profile</a>
-                    <a href="logout.php">Logout</a>
-                </div>
-            </li>
-        <?php else: ?>
-            <li><a href="login.php">Login</a></li>
-        <?php endif; ?>
-    </ul>
-</nav>
+ <nav class="navbar">
+        <!-- Logo as an image instead of text -->
+        <div class="logo">
+            <img src="uploads/logo.png" alt="QuikWork Logo" style="height: 50px; width: auto;">
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.php">Home</a></li>
+            <li><a href="servicemain.php">Services</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="contact.php">Contact</a></li>
+
+            <?php if ($user_id): ?>
+                <!-- User Profile Dropdown -->
+                <li class="dropdown">
+                    <a href="#" class="dropbtn">
+                        <img src="uploads/<?php echo htmlspecialchars($profile_pic); ?>" 
+                             alt="Profile" class="nav-profile-pic"
+                             style="height:40px; width:40px;">
+                        <?php echo htmlspecialchars($username); ?>
+                    </a>
+                    <div class="dropdown-content">
+                        <a href="profile.php">Profile</a>
+                        <a href="logout.php">Logout</a>
+                    </div>
+                </li>
+            <?php else: ?>
+                <!-- Show Login Link If Not Logged In -->
+                <li><a href="login.php">Login</a></li>
+            <?php endif; ?>
+        </ul>
+    </nav>
+</header>
 
 <div class="main-content">
     <section>

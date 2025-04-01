@@ -1,22 +1,16 @@
-/* General Styles */
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body Styles */
 body {
-    margin: 0;
-    font-family: "Lato", sans-serif;
-    font-weight: 400;
-    font-style: normal;
-    line-height: 1.6;
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
     color: #333;
-    background-color: #f4f4f4;
-}
-
-a {
-    text-decoration: none;
-    color: inherit;
-}
-
-h1, h2, h3 {
-    margin: 0;
-    color: #222;
+    line-height: 1.6;
 }
 
 /* Navbar Styles */
@@ -51,92 +45,223 @@ h1, h2, h3 {
     color: #ffcc00;
 }
 
-/* Hero Section Styles */
-.hero {
+
+/* Main Content Adjustments */
+.main-content {
+    margin-top: 80px;
+    padding: 20px;
+}
+
+/* Section Title */
+section h2 {
     text-align: center;
-    padding: 4rem 1rem;
-    background: url('hero.jpg') no-repeat center/cover;
-    color: white;
+    margin-bottom: 20px;
+    color: #0073e6;
 }
 
-.ftp {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
-}
-
-.search-bar {
-    margin-top: 1.5rem;
-    display: flex;
-    justify-content: center;
-    gap: 0.5rem;
-}
-
-.search-bar input {
-    padding: 0.8rem;
-    font-size: 1rem;
-    width: 300px;
-    border: none;
-    border-radius: 5px;
-    outline: none;
-}
-
-.search-bar button {
-    padding: 0.8rem 1.5rem;
-    font-size: 1rem;
-    background-color: #ffcc00;
-    border: none;
-    width: 100px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.search-bar button:hover {
-    background-color: #e6b800;
+section p {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #555;
 }
 
 /* Services Section */
-.services {
-    padding: 2rem 1rem;
-    background-color: #fff;
-    text-align: center;
-}
-
-.services h2 {
-    margin-bottom: 1.5rem;
-}
-
-.service-cards {
+.service-list {
     display: flex;
-    gap: 1.5rem;
-    justify-content: center;
     flex-wrap: wrap;
+    gap: 20px;
+    justify-content: space-around;
 }
 
-.card {
-    background-color: #f9f9f9;
+.service {
+    background-color: white;
     border-radius: 10px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
     width: 250px;
     text-align: center;
     transition: transform 0.3s ease;
 }
 
-.card:hover {
-    transform: translateY(-5px);
-}
-
-.card img {
+.service img {
     width: 100%;
     height: 150px;
+    border-radius: 10px;
     object-fit: cover;
 }
 
-.card h3 {
-    padding: 1rem;
+.service h4 {
+    margin-top: 15px;
+    color: #0073e6;
+}
+
+.service p {
+    color: #555;
+}
+
+.service button {
+    margin: 10px 5px 0;
+    padding: 10px 15px;
+    background-color: #0073e6;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.service button:hover {
+    background-color: #005bb5;
+}
+
+.service:hover {
+    transform: translateY(-10px);
+}
+
+/* Main Content Adjustments */
+.main-content {
+    margin-top: 80px;
+    padding: 20px;
+}
+
+/* Form Styling */
+form {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    margin: 20px auto;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input, select, textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+    font-size: 1rem;
+}
+
+input[type="file"] {
+    padding: 5px;
+}
+
+textarea {
+    resize: vertical;
+}
+
+button {
+    background-color: #0073e6;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #005bb5;
+}
+
+#created-services {
+    margin-top: 40px;
+}
+
+.service-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: space-around;
+}
+
+.service-list .service {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 250px;
+    text-align: center;
+}
+
+.service img {
+    width: 100%;
+    height: 150px;
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+.service h4 {
+    margin-top: 15px;
+    color: #0073e6;
+}
+
+.service p {
+    color: #555;
+}
+
+/* Footer Styles */
+footer {
+    text-align: center;
+    padding: 30px;
     background-color: #0044cc;
     color: white;
+    position: ;
+    bottom: 0;
+    width: 100%;
+}
+.div-shadow{
+    background-color: beige;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 250px;
+    height: 250px;
+    text-align: center;
+    transition: transform 0.3s ease;
+    margin: 0 1em 1em 0;
+}
+
+.serviceflex{
+    display: flex;
+}
+
+/* Footer Styles */
+footer {
+    text-align: center;
+    padding: 30px;
+    background-color: #0044cc;
+    color: white;
+    position: ;
+    bottom: 0;
+    width: 100%;
+}
+.div-shadow{
+    background-color: beige;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 250px;
+    height: 250px;
+    text-align: center;
+    transition: transform 0.3s ease;
+    margin: 0 1em 1em 0;
+}
+
+.serviceflex{
+    display: flex;
 }
 
 /* Profile Picture in Navbar */
@@ -164,14 +289,13 @@ h1, h2, h3 {
     box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
     border-radius: 5px;
     z-index: 1000;
-    overflow: hidden;
 }
 
 .dropdown-content a {
     display: block;
     padding: 10px;
     text-decoration: none;
-    color: rgb(255, 255, 255);
+    color: white;
     font-size: 14px;
 }
 
