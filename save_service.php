@@ -10,6 +10,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_SESSION['user_id'])) {
     $description = $_POST['service_description'];
     $image_name = "";
 
+    // Check if the user already has 3 services
+    $checkQuery = "SELECT COUNT(*) FROM services WHERE user_id = :user_id";
+    $stmt = $conn->prepare($checkQuery);
+    $stmt->execute([':user_id' => $user_id]);
+    $serviceCount = $stmt->fetchColumn();
+
+    if ($serviceCount >= 3) {
+        // User already has 3 services, block them from adding more
+        echo "<script>alert('You can only create up to 3 services.'); window.location.href = 'servicemain.php';</script>";
+        exit();
+    }
+
     // Handle file upload
     if (isset($_FILES['service_image']) && $_FILES['service_image']['error'] == 0) {
         $upload_dir = "uploads/";
@@ -34,7 +46,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_SESSION['user_id'])) {
             ':description' => $description,
             ':service_image' => $image_name
         ]);
-        header("Location: servicemain.php");
+        header("Location: servicemain.php?success=Service created successfully!");
         exit();
     } catch (PDOException $e) {
         die("Database error: " . $e->getMessage());

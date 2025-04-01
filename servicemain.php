@@ -116,7 +116,7 @@ if ($user_id) {
             <?php if (!empty($services)): ?>
                 <?php foreach ($services as $service): ?>
                     <div class="service">
-                        <img src="uploads/<?php echo htmlspecialchars($service['image']); ?>" alt="Service Image">
+                        <img src="uploads/<?php echo htmlspecialchars($service['service_image']); ?>" alt="Service Image">
                         <h4><?php echo htmlspecialchars($service['title']); ?></h4>
                         <p>Category: <?php echo htmlspecialchars($service['category']); ?></p>
                         <p>Price: $<?php echo htmlspecialchars($service['price']); ?></p>
@@ -124,6 +124,8 @@ if ($user_id) {
                         <form action="delete_service.php" method="POST" onsubmit="return confirm('Are you sure you want to delete this service?');">
                             <input type="hidden" name="service_id" value="<?php echo $service['id']; ?>">
                              <button type="submit">Delete</button>
+                             <a href="edit_service.php?id=<?php echo $service['id']; ?>">Edit</a>
+
                         </form>
 
                     </div>
