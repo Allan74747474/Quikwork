@@ -39,6 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register</title>
     <link rel="stylesheet" href="register.css">
+    <link rel="icon" type="image/png" href="favicon.png">
 </head>
 <body>
     <!-- Navbar -->
@@ -47,7 +48,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <h1 class="logo">QuikWork</h1>
             <ul class="nav-links">
                 <li><a href="index.php">Home</a></li>
-                <li><a href="servicemain.html">Services</a></li>
+                <li><a href="servicemain.php">Services</a></li>
                 <li><a href="#about">About</a></li>
                 <li><a href="#contact">Contact</a></li>
                 <li><a href="login.php">Login</a></li>
