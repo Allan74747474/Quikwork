@@ -44,7 +44,7 @@ if ($user_id) {
                 <li><a href="index.php">Home</a></li>
                 <li><a href="servicemain.php">Services</a></li>
                 <li><a href="#about">About</a></li>
-                <li><a href="#contact">Contact</a></li>
+                <li><a href="contact.php">Contact</a></li>
 
                 <?php if ($user_id): ?>
                     <!-- User Profile Dropdown -->
@@ -97,16 +97,6 @@ if ($user_id) {
             <h2>About Us</h2>
             <p>QuikWork is a platform that connects talented freelancers with clients worldwide, providing high-quality services to meet your needs.</p>
         </section>
-        <section id="contact" class="contact">
-            <h2>Contact Us</h2>
-            <form id="contact-form">
-                <input type="text" placeholder="Your Name" required>
-                <input type="email" placeholder="Your Email" required>
-                <textarea placeholder="Your Message" required></textarea>
-                <button type="submit">Send</button>
-            </form>
-        </section>
-    </main>
     
     <footer>
         <p>&copy; 2025 QuikWork. All Rights Reserved.</p>
