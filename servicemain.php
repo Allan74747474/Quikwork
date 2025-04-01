@@ -1,25 +1,13 @@
 <?php
 session_start();
-?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QuikWork - All Services</title>
-    <link rel="stylesheet" href="mainservice.css">
-    <link rel="icon" type="image/png" href="favicon.png">
-</head>
-<body>
-<?php
-session_start();
-include 'db_config.php'; // Ensure database connection
+include 'db_config.php'; // Database connection
 
 $user_id = $_SESSION['user_id'] ?? null;
 $profile_pic = "default.jpg"; // Default profile image
 $username = "Guest"; // Default username
 
 if ($user_id) {
+    // Fetch user details
     $query = "SELECT username, profile_pic FROM users WHERE id = :user_id";
     $stmt = $conn->prepare($query);
     $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
@@ -32,9 +20,26 @@ if ($user_id) {
             $profile_pic = $user['profile_pic'];
         }
     }
+
+    // Fetch user services
+    $serviceQuery = "SELECT * FROM services WHERE user_id = :user_id ORDER BY created_at DESC";
+    $stmt = $conn->prepare($serviceQuery);
+    $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+    $stmt->execute();
+    $services = $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 ?>
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuikWork - Your Services</title>
+    <link rel="stylesheet" href="mainservice.css">
+    <link rel="icon" type="image/png" href="favicon.png">
+</head>
+<body>
 
 <nav class="navbar">
     <h1>QuikWork</h1>
@@ -43,13 +48,11 @@ if ($user_id) {
         <li><a href="servicemain.php">Services</a></li>
         <li><a href="#about">About</a></li>
         <li><a href="#contact">Contact</a></li>
-
         <?php if ($user_id): ?>
-            <!-- User Profile Dropdown -->
             <li class="dropdown">
                 <a href="#" class="dropbtn">
                     <img src="uploads/<?php echo htmlspecialchars($profile_pic); ?>" 
-                         alt="Profile" class="nav-profile-pic"
+                         alt="Profile" class="nav-profile-pic" 
                          style="height:40px; width:40px;">
                     <?php echo htmlspecialchars($username); ?>
                 </a>
@@ -59,80 +62,78 @@ if ($user_id) {
                 </div>
             </li>
         <?php else: ?>
-            <!-- Show Login Link If Not Logged In -->
             <li><a href="login.php">Login</a></li>
         <?php endif; ?>
     </ul>
 </nav>
 
+<div class="main-content">
+    <section>
+        <h2>Create and Offer Your Services</h2>
+        <form action="save_service.php" method="POST" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="service-title">Service Title</label>
+                <input type="text" id="service-title" name="service_title" placeholder="Enter your service title" required>
+            </div>
+
+            <div class="form-group">
+                <label for="service-category">Category</label>
+                <select id="service-category" name="service_category" required>
+                    <option value="">--Select a category--</option>
+                    <option value="graphic-design">Graphic Design</option>
+                    <option value="web-development">Web Development</option>
+                    <option value="content-writing">Content Writing</option>
+                    <option value="digital-marketing">Digital Marketing</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="service-price">Price ($)</label>
+                <input type="number" id="service-price" name="service_price" placeholder="Enter your price" required>
+            </div>
+
+            <div class="form-group">
+                <label for="service-description">Description</label>
+                <textarea id="service-description" name="service_description" rows="5" placeholder="Describe your service in detail" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="service-image">Upload an Image</label>
+                <input type="file" id="service-image" name="service_image" accept="image/*" required>
+            </div>
+
+            <button class="submit" type="submit">Create Service</button>
+        </form>
+    </section>
+</div>
 
 <div class="main-content">
-        <section>
-            <h2>Create and Offer Your Services</h2>
-            <form id="service-form">
-                <div class="form-group">
-                    <label for="service-title">Service Title</label>
-                    <input type="text" id="service-title" name="service-title" placeholder="Enter your service title" required>
-                </div>
+    <section>
+        <h2>Your Services</h2>
+        <p>Below is a list of all the services you have created.</p>
 
-                <div class="form-group">
-                    <label for="service-category">Category</label>
-                    <select id="service-category" name="service-category" required>
-                        <option value="">--Select a category--</option>
-                        <option value="graphic-design">Graphic Design</option>
-                        <option value="web-development">Web Development</option>
-                        <option value="content-writing">Content Writing</option>
-                        <option value="digital-marketing">Digital Marketing</option>
-                    </select>
-                </div>
+        <div class="service-list">
+            <?php if (!empty($services)): ?>
+                <?php foreach ($services as $service): ?>
+                    <div class="service">
+                        <img src="uploads/<?php echo htmlspecialchars($service['image']); ?>" alt="Service Image">
+                        <h4><?php echo htmlspecialchars($service['title']); ?></h4>
+                        <p>Category: <?php echo htmlspecialchars($service['category']); ?></p>
+                        <p>Price: $<?php echo htmlspecialchars($service['price']); ?></p>
+                        <p><?php echo htmlspecialchars($service['description']); ?></p>
+                        <form action="delete_service.php" method="POST" onsubmit="return confirm('Are you sure you want to delete this service?');">
+                            <input type="hidden" name="service_id" value="<?php echo $service['id']; ?>">
+                             <button type="submit">Delete</button>
+                        </form>
 
-                <div class="form-group">
-                    <label for="service-price">Price ($)</label>
-                    <input type="number" id="service-price" name="service-price" placeholder="Enter your price" required>
-                </div>
+                    </div>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <p>No services found. Create your first service above!</p>
+            <?php endif; ?>
+        </div>
+    </section>
+</div>
 
-                <div class="form-group">
-                    <label for="service-description">Description</label>
-                    <textarea id="service-description" name="service-description" rows="5" placeholder="Describe your service in detail" required></textarea>
-                </div>
-
-                <div class="form-group">
-                    <label for="service-image">Upload an Image</label>
-                    <input type="file" id="service-image" name="service-image" accept="image/*" required>
-                </div>
-
-                <button class="submit" type="submit">Create Service</button>
-            </form>
-        </section>
-    </div>
-
-    <div class="main-content" id="main">
-        <section>
-            <h2>All Your Services</h2>
-            <p>Below is a list of all the services you have created. Manage and update them as needed.</p>
-
-            <!-- Uncomment and populate this section with dynamic content as needed
-            <div class="service-list">
-                <div class="service">
-                    <img src="https://freeup.net/wp-content/uploads/2021/12/man-picking-colors-for-logo-design-1024x576.jpg" alt="Service 1">
-                    <h4>Logo Design</h4>
-                    <p>Starting at $50</p>
-                    <button>Edit</button>
-                    <button>Delete</button>
-                </div>
-                ...
-            </div>
-            -->
-        </section>
-    </div>
-
-    <script src="service.js"></script>
-
-    <!-- Footer -->
-    <!-- Uncomment if needed
-    <footer>
-        <p>&copy; 2025 QuikWork. All rights reserved.</p>
-    </footer>
-    -->
 </body>
 </html>
