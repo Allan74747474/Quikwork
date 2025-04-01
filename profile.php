@@ -44,7 +44,7 @@ $profilePic = !empty($user['profile_pic']) ? $user['profile_pic'] : "default.jpg
         <h1 class="logo">QuikWork</h1>
         <ul class="nav-links">
             <li><a href="index.php">Home</a></li>
-            <li><a href="services.php">Services</a></li>
+            <li><a href="servicemain.php">Services</a></li>
             <li class="dropdown">
                 <a href="#" class="dropbtn">
                     <img src="uploads/<?php echo htmlspecialchars($profilePic); ?>" alt="Profile" class="nav-profile-pic">
