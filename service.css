@@ -1,0 +1,242 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body Styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+    line-height: 1.6;
+
+/* Navbar Styles */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #0044cc;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    z-index: 1000;
+}
+
+/* Main Content */
+main {
+    max-width: 800px;
+    margin: 100px auto 50px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+/* Service Title */
+h1 {
+    color: #0073e6;
+    margin-bottom: 15px;
+}
+
+/* Service Image */
+.service-image {
+    width: 100%;
+    max-height: 300px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+/* Service Details */
+.service-details {
+    text-align: left;
+    padding: 15px;
+}
+
+.service-details p {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 10px;
+}
+
+.service-details strong {
+    color: #0073e6;
+}
+
+/* Contact Seller Section */
+.contact-seller {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #f1f1f1;
+    border-radius: 10px;
+}
+
+.contact-seller a {
+    text-decoration: none;
+    color: #0044cc;
+    font-weight: bold;
+}
+
+.contact-seller a:hover {
+    text-decoration: underline;
+}
+
+/* Footer Styles */
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #0044cc;
+    color: white;
+    margin-top: 50px;
+}
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Navbar Styles */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #0044cc;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    z-index: 1000;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 1.5rem;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.nav-links a:hover, .nav-links a.active {
+    color: #ffcc00;
+}
+
+/* Adjust Content to Avoid Overlapping with Navbar */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+    padding-top: 60px; /* Adjust this based on navbar height */
+}
+
+/* Styling for the Service Page */
+.service-container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+.service-image {
+    width: 100%;
+    max-height: 300px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.service-details {
+    padding: 15px;
+}
+
+.service-details h1 {
+    color: #0073e6;
+    margin-bottom: 10px;
+}
+
+.service-details p {
+    color: #555;
+    margin-bottom: 10px;
+}
+
+/* Footer Styles */
+footer {
+    text-align: center;
+    padding: 30px;
+    background-color: #0044cc;
+    color: white;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
+/* Profile Picture in Navbar */
+.nav-profile-pic {
+    width: 25px; 
+    height: 25px;
+    border-radius: 50%; /* Makes it circular */
+    object-fit: cover; /* Ensures image is properly cropped */
+    margin-right: 5px;
+    vertical-align: middle;
+}
+
+/* Dropdown Styles */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0; /* Align dropdown to the right */
+    background-color: #0044cc;
+    min-width: 150px;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    z-index: 1000;
+}
+
+.dropdown-content a {
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+    color: white;
+    font-size: 14px;
+}
+
+.dropdown-content a:last-child {
+    border-bottom: none; /* Removes bottom border from last item */
+}
+
+.dropdown-content a:hover {
+    background-color:#092c72;
+}
+
+/* Show dropdown on hover */
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* Styling for Username next to Profile Picture */
+.profile-link {
+    display: flex;
+    align-items: center;
+    color: #0044ccc9;
+    font-weight: bold;
+    cursor: pointer;
+    gap: 5px;
+}

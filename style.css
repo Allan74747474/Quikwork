@@ -334,5 +334,11 @@ button:hover {
     gap: 5px;
 }
 
-
-
+.service-image {
+    max-width: 100%; /* Ensures responsiveness */
+    max-height: 300px; /* Keeps the image at a reasonable size */
+    display: block;
+    margin: 10px auto; /* Centers the image */
+    border-radius: 10px; /* Optional: Rounded corners */
+    object-fit: cover; /* Prevents distortion */
+}
