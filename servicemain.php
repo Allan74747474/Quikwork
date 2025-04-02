@@ -4,7 +4,7 @@ include 'db_config.php';
 
 $user_id = $_SESSION['user_id'] ?? null;
 if (!$user_id) {
-    echo "<script>alert('You must log in to access this page!'); window.location.href='login.php';</script>";
+    echo "<script>alert('You must log in to access this page!'); window.location.href='login';</script>";
     exit();
 }
 
@@ -58,10 +58,10 @@ if ($user_id) {
             <img src="uploads/logo.png" alt="QuikWork Logo" style="height: 50px; width: auto;">
         </div>
         <ul class="nav-links">
-            <li><a href="index.php">Home</a></li>
-            <li><a href="servicemain.php">Services</a></li>
+            <li><a href="/">Home</a></li>
+            <li><a href="servicemain">Services</a></li>
             <li><a href="#about">About</a></li>
-            <li><a href="contact.php">Contact</a></li>
+            <li><a href="contact">Contact</a></li>
 
             <?php if ($user_id): ?>
                 <!-- User Profile Dropdown -->
@@ -73,13 +73,13 @@ if ($user_id) {
                         <?php echo htmlspecialchars($username); ?>
                     </a>
                     <div class="dropdown-content">
-                        <a href="profile.php">Profile</a>
-                        <a href="logout.php">Logout</a>
+                        <a href="profile">Profile</a>
+                        <a href="logout">Logout</a>
                     </div>
                 </li>
             <?php else: ?>
                 <!-- Show Login Link If Not Logged In -->
-                <li><a href="login.php">Login</a></li>
+                <li><a href="login">Login</a></li>
             <?php endif; ?>
         </ul>
     </nav>

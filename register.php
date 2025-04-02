@@ -49,11 +49,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <img src="uploads/logo.png" alt="QuikWork Logo" style="height: 50px; width: auto;">
         </div>
             <ul class="nav-links">
-                <li><a href="index.php">Home</a></li>
-                <li><a href="servicemain.php">Services</a></li>
+                <li><a href="/">Home</a></li>
+                <li><a href="servicemain">Services</a></li>
                 <li><a href="#about">About</a></li>
-                <li><a href="#contact">Contact</a></li>
-                <li><a href="login.php">Login</a></li>
+                <li><a href="contact">Contact</a></li>
+                <li><a href="login">Login</a></li>
             </ul>
         </nav>
     </header>

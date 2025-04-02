@@ -45,16 +45,16 @@ $profilePic = !empty($user['profile_pic']) ? $user['profile_pic'] : "default.jpg
             <img src="uploads/logo.png" alt="QuikWork Logo" style="height: 50px; width: auto;">
         </div>
         <ul class="nav-links">
-            <li><a href="index.php">Home</a></li>
-            <li><a href="servicemain.php">Services</a></li>
+            <li><a href="/">Home</a></li>
+            <li><a href="servicemain">Services</a></li>
             <li class="dropdown">
                 <a href="#" class="dropbtn">
                     <img src="uploads/<?php echo htmlspecialchars($profilePic); ?>" alt="Profile" class="nav-profile-pic">
                     <?php echo htmlspecialchars($user['username']); ?>
                 </a>
                 <div class="dropdown-content">
-                    <a href="profile.php">Profile</a>
-                    <a href="logout.php">Logout</a>
+                    <a href="profile">Profile</a>
+                    <a href="logout">Logout</a>
                 </div>
             </li>
         </ul>
