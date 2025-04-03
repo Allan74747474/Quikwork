@@ -20,6 +20,13 @@ if ($user_id) {
         }
     }
 }
+
+// Fetch all services on page load for instant search
+$query = "SELECT id, title FROM services";
+$stmt = $conn->prepare($query);
+$stmt->execute();
+$services = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
 ?>
 
 <!DOCTYPE html>
@@ -68,45 +75,12 @@ if ($user_id) {
         <h1 class="ftp">Find the Perfect Freelance Services</h1>
         <div class="search-bar">
             <form method="GET" action="">
-                <input type="text" name="query" placeholder="What service are you looking for?" value="<?php echo htmlspecialchars($_GET['query'] ?? ''); ?>">
+                <input type="text" id="search-input" name="query" placeholder="What service are you looking for?" autocomplete="off">
                 <button type="submit">Search</button>
+                <div id="search-results" class="dropdown-results"></div>
             </form>
         </div>
     </section>
-
-    <?php
-    // Handle search query
-    $search_query = $_GET['query'] ?? '';
-    if ($search_query) {
-        $query = "SELECT * FROM services WHERE title LIKE :search_query OR description LIKE :search_query";
-        $stmt = $conn->prepare($query);
-        $search_param = '%' . $search_query . '%';
-        $stmt->bindParam(':search_query', $search_param, PDO::PARAM_STR);
-        $stmt->execute();
-        $search_results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    } else {
-        $search_results = [];
-    }
-    ?>
-
-    <?php if ($search_query): ?>
-        <section class="search-results">
-            <h2>Search Results</h2>
-            <?php if ($search_results): ?>
-                <ul>
-                    <?php foreach ($search_results as $service): ?>
-                        <li>
-                            <a href="service.php?id=<?php echo $service['id']; ?>">
-                                <?php echo htmlspecialchars($service['title']); ?>
-                            </a>
-                        </li>
-                    <?php endforeach; ?>
-                </ul>
-            <?php else: ?>
-                <p>No results found.</p>
-            <?php endif; ?>
-        </section>
-    <?php endif; ?>
 
     <section id="services" class="services">
         <h2>Explore Popular Services</h2>
@@ -136,12 +110,66 @@ if ($user_id) {
         <h2>About Us</h2>
         <p>QuikWork is a platform that connects talented freelancers with clients worldwide, providing high-quality services to meet your needs.</p>
     </section>
+
+
+<section id="service" class="services">
+    <h2>More Services</h2>
+    <div class="service-cards">
+        <div class="card">
+            <a href="service.php?id=4"> 
+                <img src="https://brewingideaz.com/wp-content/uploads/2024/01/Web-Designer-2.jpg" alt="Web Design"> 
+                <h3>Web Design </h3>
+            </a>
+        </div>
+    </div>
+</section>
+
 </main>
 
 <footer>
     <p>&copy; 2025 QuikWork. All Rights Reserved.</p>
 </footer>
 
-<script src="script.js"></script>
-</body>
-</html>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const searchInput = document.getElementById("search-input");
+        const searchResults = document.getElementById("search-results");
+
+        // Preloaded services from PHP
+        const services = <?php echo json_encode($services); ?>;
+
+        searchInput.addEventListener("keyup", function () {
+            let query = searchInput.value.toLowerCase().trim();
+            searchResults.innerHTML = "";
+
+            if (query.length === 0) {
+                searchResults.style.display = "none";
+                return;
+            }
+
+            let filteredServices = services.filter(service =>
+                service.title.toLowerCase().includes(query)
+            );
+
+            if (filteredServices.length > 0) {
+                searchResults.style.display = "block";
+                filteredServices.forEach(service => {
+                    let item = document.createElement("div");
+                    item.classList.add("result-item");
+                    item.innerHTML = `<a href="service.php?id=${service.id}">${service.title}</a>`;
+                    searchResults.appendChild(item);
+                });
+            } else {
+                searchResults.innerHTML = "<div class='result-item'>No results found</div>";
+                searchResults.style.display = "block";
+            }
+        });
+
+        document.addEventListener("click", function (e) {
+            if (!searchResults.contains(e.target) && e.target !== searchInput) {
+                searchResults.style.display = "none";
+            }
+        });
+    });
+</script>
+

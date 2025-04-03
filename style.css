@@ -73,6 +73,7 @@ header {
 }
 
 .search-bar {
+    position: relative; /* Ensures dropdown is positioned relative to search bar */
     margin-top: 1.5rem;
     display: flex;
     justify-content: center;
@@ -82,10 +83,12 @@ header {
 .search-bar input {
     padding: 0.8rem;
     font-size: 1rem;
-    width: 300px;
+    width: 320px; /* Width of search bar */
     border: none;
     border-radius: 5px;
     outline: none;
+    position: relative;
+    z-index: 2;
 }
 
 .search-bar button {
@@ -341,4 +344,41 @@ button:hover {
     margin: 10px auto; /* Centers the image */
     border-radius: 10px; /* Optional: Rounded corners */
     object-fit: cover; /* Prevents distortion */
+}
+/* dropdown for the search :) */
+.dropdown-results {
+    position: absolute;
+    width: 325px !important; /* Forces dropdown width */
+    background: white;
+    border: 1px solid #ccc;
+    border-top: none;
+    max-height: 200px;
+    overflow-y: auto;
+    display: none;
+    z-index: 1000;
+    left: 47%;
+    transform: translateX(-47%); /* Centers dropdown under input */
+    top: 100%;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    
+}
+
+.result-item {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    text-align: left; /* Aligns text to the left */
+    font-size: 16px;
+    color :black;
+    cursor: pointer;
+}
+
+.result-item:hover {
+    background: #f0f0f0;
+}
+
+.result-item a {
+    text-decoration: none;
+    color: black;
+    display: block;
+    padding: 8px 12px;
 }

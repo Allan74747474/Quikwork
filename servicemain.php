@@ -101,7 +101,7 @@ if ($user_id) {
                     <option value="graphic-design">Graphic Design</option>
                     <option value="web-development">Web Development</option>
                     <option value="content-writing">Content Writing</option>
-                    <option value="digital-marketing">Digital Marketing</option>
+                    <option value="programming">Programming</option>
                 </select>
             </div>
 
