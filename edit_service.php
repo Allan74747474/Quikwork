@@ -97,6 +97,7 @@ if (!$service) {
             <option value="web-development" <?php if ($service['category'] == 'web-development') echo 'selected'; ?>>Web Development</option>
             <option value="content-writing" <?php if ($service['category'] == 'content-writing') echo 'selected'; ?>>Content Writing</option>
             <option value="digital-marketing" <?php if ($service['category'] == 'digital-marketing') echo 'selected'; ?>>Digital Marketing</option>
+            <option value="programming" <?php if ($service['category'] == 'digital-marketing') echo 'selected'; ?>>Programming</option>
         </select>
 
         <label>Price ($):</label>

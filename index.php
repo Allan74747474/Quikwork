@@ -86,19 +86,20 @@ $services = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <h2>Explore Popular Services</h2>
         <div class="service-cards">
             <div class="card">
-                <a href="service.php?id=1">
+               <a href="service_cat.php?category=graphic-design">
+
                     <img src="https://blog-frontend.envato.com/cdn-cgi/image/width=1200,quality=75,format=auto,fit=crop,height=630/uploads/sites/2/2023/02/Tuts_Roundup__Top_Graphic_Design_Courses.jpeg" alt="Graphic Design">
                     <h3>Graphic Design</h3>
                 </a>
             </div>
             <div class="card">
-                <a href="service.php?id=2">
+                <a href="service_cat.php?category=programming">
                     <img src="https://media.istockphoto.com/id/1061031056/photo/pre-adolescent-boy-programming-at-computer.jpg?s=612x612&w=0&k=20&c=ZpdMz3WOKlahnBBOzeue4fdSIyzlZyHyfW4t9qi_xHQ=" alt="Programming">
                     <h3>Programming</h3>
                 </a>
             </div>
             <div class="card">
-                <a href="service.php?id=3">
+                <a href="service_cat.php?category=content-writing">
                     <img src="https://www.simplilearn.com/ice9/free_resources_article_thumb/How_To_Become_A_Content_Writer.jpg" alt="Content Writing">
                     <h3>Content Writing</h3>
                 </a>
@@ -116,9 +117,9 @@ $services = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <h2>More Services</h2>
     <div class="service-cards">
         <div class="card">
-            <a href="service.php?id=4"> 
-                <img src="https://brewingideaz.com/wp-content/uploads/2024/01/Web-Designer-2.jpg" alt="Web Design"> 
-                <h3>Web Design </h3>
+            <a href="service_cat.php?category=web-development">
+                <img src="https://brewingideaz.com/wp-content/uploads/2024/01/Web-Designer-2.jpg" alt="Web Devlopment"> 
+                <h3>Web Development </h3>
             </a>
         </div>
     </div>
