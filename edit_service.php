@@ -100,7 +100,7 @@ if (!$service) {
             <option value="programming" <?php if ($service['category'] == 'digital-marketing') echo 'selected'; ?>>Programming</option>
         </select>
 
-        <label>Price ($):</label>
+        <label>Price (₹):</label>
         <input type="number" name="service_price" value="<?php echo htmlspecialchars($service['price']); ?>" required>
 
         <label>Description:</label>

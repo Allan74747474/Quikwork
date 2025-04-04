@@ -51,7 +51,7 @@ if ($user_id) {
     <link rel="icon" type="image/png" href="favicon.png">
 </head>
 <body>
-
+<header>
  <nav class="navbar">
         <!-- Logo as an image instead of text -->
         <div class="logo">
@@ -106,7 +106,7 @@ if ($user_id) {
             </div>
 
             <div class="form-group">
-                <label for="service-price">Price ($)</label>
+                <label for="service-price">Price (₹)</label>
                 <input type="number" id="service-price" name="service_price" placeholder="Enter your price" required>
             </div>
 
@@ -137,7 +137,7 @@ if ($user_id) {
                         <img src="uploads/<?php echo htmlspecialchars($service['service_image']); ?>" alt="Service Image">
                         <h4><?php echo htmlspecialchars($service['title']); ?></h4>
                         <p>Category: <?php echo htmlspecialchars($service['category']); ?></p>
-                        <p>Price: $<?php echo htmlspecialchars($service['price']); ?></p>
+                        <p>Price: ₹<?php echo htmlspecialchars($service['price']); ?></p>
                         <p><?php echo htmlspecialchars($service['description']); ?></p>
                         <form action="delete_service.php" method="POST" onsubmit="return confirm('Are you sure you want to delete this service?');">
                             <input type="hidden" name="service_id" value="<?php echo $service['id']; ?>">

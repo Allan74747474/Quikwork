@@ -2,8 +2,8 @@
 session_start();
 include 'db_config.php'; // Ensure database connection
 
-// Check if 'id' parameter exists in the URL
-if (!isset($_GET['id']) || empty($_GET['id'])) {
+// Validate and fetch service ID
+if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
     die("Invalid service ID.");
 }
 
@@ -18,22 +18,16 @@ $stmt->bindParam(':service_id', $service_id, PDO::PARAM_INT);
 $stmt->execute();
 $service = $stmt->fetch(PDO::FETCH_ASSOC);
 
-
 if (!$service) {
     die("Service not found.");
 }
-?>
 
-<?php
-session_start();
-include 'db_config.php'; // Database connection
-
+// User session data
 $user_id = $_SESSION['user_id'] ?? null;
-$profile_pic = "default.jpg"; // Default profile image
-$username = "Guest"; // Default username
+$profile_pic = "default.jpg";
+$username = "Guest";
 
 if ($user_id) {
-    // Fetch user details
     $query = "SELECT username, profile_pic FROM users WHERE id = :user_id";
     $stmt = $conn->prepare($query);
     $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
@@ -42,17 +36,8 @@ if ($user_id) {
 
     if ($user) {
         $username = $user['username'];
-        if (!empty($user['profile_pic'])) {
-            $profile_pic = $user['profile_pic'];
-        }
+        $profile_pic = !empty($user['profile_pic']) ? $user['profile_pic'] : "default.jpg";
     }
-
-    // Fetch user services
-    $serviceQuery = "SELECT * FROM services WHERE user_id = :user_id ORDER BY created_at DESC";
-    $stmt = $conn->prepare($serviceQuery);
-    $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
-    $stmt->execute();
-    $services = $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 ?>
 
@@ -62,24 +47,22 @@ if ($user_id) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo htmlspecialchars($service['title']); ?> - QuikWork</title>
-    <link rel="stylesheet" href="service.css">
+    <link rel="stylesheet" href="search.css">
     <link rel="icon" type="image/png" href="favicon.png">
 </head>
 <body>
 
 <header>
- <nav class="navbar">
-        <!-- Logo as an image instead of text -->
+    <nav class="navbar">
         <div class="logo">
             <img src="uploads/logo.png" alt="QuikWork Logo" style="height: 50px; width: auto;">
         </div>
         <ul class="nav-links">
             <li><a href="/">Home</a></li>
-            <li><a href="servicemain">Services</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="contact">Contact</a></li>
-              <?php if ($user_id): ?>
-                <!-- User Profile Dropdown -->
+            <li><a href="servicemain.php">Services</a></li>
+            <li><a href="/#about">About</a></li>
+            <li><a href="contact.php">Contact</a></li>
+            <?php if ($user_id): ?>
                 <li class="dropdown">
                     <a href="#" class="dropbtn">
                         <img src="uploads/<?php echo htmlspecialchars($profile_pic); ?>" 
@@ -88,33 +71,28 @@ if ($user_id) {
                         <?php echo htmlspecialchars($username); ?>
                     </a>
                     <div class="dropdown-content">
-                        <a href="profile">Profile</a>
-                        <a href="logout">Logout</a>
+                        <a href="profile.php">Profile</a>
+                        <a href="logout.php">Logout</a>
                     </div>
                 </li>
             <?php else: ?>
-                <!-- Show Login Link If Not Logged In -->
-                <li><a href="login">Login</a></li>
+                <li><a href="login.php">Login</a></li>
             <?php endif; ?>
         </ul>
     </nav>
 </header>
 
-</header>
-
 <main>
     <h1><?php echo htmlspecialchars($service['title']); ?></h1>
     
-  <?php if (!empty($service['service_image'])): ?>
-
-     <img src="uploads/<?php echo htmlspecialchars($service['service_image']); ?>" alt="Service Image">
-<?php else: ?>
-    <p>No image available</p>
-<?php endif; ?>
-
+    <?php if (!empty($service['service_image']) && file_exists("uploads/" . $service['service_image'])): ?>
+        <img src="uploads/<?php echo htmlspecialchars($service['service_image']); ?>" alt="Service Image">
+    <?php else: ?>
+        <p>No image available</p>
+    <?php endif; ?>
 
     <p><strong>Category:</strong> <?php echo htmlspecialchars($service['category']); ?></p>
-    <p><strong>Price:</strong> $<?php echo number_format($service['price'], 2); ?></p>
+    <p><strong>Price:</strong>  ₹<?php echo number_format($service['price'], 2); ?></p>
     <p><strong>Description:</strong> <?php echo nl2br(htmlspecialchars($service['description'])); ?></p>
     
     <h3>Contact the Seller</h3>
