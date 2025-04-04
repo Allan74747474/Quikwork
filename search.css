@@ -11,7 +11,7 @@ body {
     background-color: #f9f9f9;
     color: #333;
     line-height: 1.6;
-
+}
 /* Navbar Styles */
 .navbar {
     position: fixed;
@@ -264,10 +264,8 @@ main {
 
 /* Stick the footer to the bottom */
 footer {
+    padding: 1rem;
     text-align: center;
-    padding: 20px;
     background-color: #0044cc;
     color: white;
-    width: 100%;
-    margin-top: auto; /* Ensures it stays at the bottom */
 }

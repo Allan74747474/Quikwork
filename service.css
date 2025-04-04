@@ -11,7 +11,7 @@ body {
     background-color: #f9f9f9;
     color: #333;
     line-height: 1.6;
-
+}
 /* Navbar Styles */
 .navbar {
     position: fixed;
@@ -89,11 +89,10 @@ h1 {
 
 /* Footer Styles */
 footer {
+    padding: 1rem;
     text-align: center;
-    padding: 20px;
     background-color: #0044cc;
     color: white;
-    margin-top: 50px;
 }
 /* General Reset */
 * {
